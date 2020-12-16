@@ -1,6 +1,5 @@
-NumTasks 5
-Task1 3 4
+NumTasks 3
+Task1 4 10
 Task2 1 4
 Task3 2 5
-task4 3 4
-task4 3 4
+
