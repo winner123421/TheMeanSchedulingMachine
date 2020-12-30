@@ -82,6 +82,7 @@ int main(){
 
 
     ifstream file("testcase.txt");
+    ofstream outfile("output.txt");
 
 
     file >> fun >> numtask;
@@ -112,7 +113,7 @@ int main(){
     }
     cout<<"\n";
 
-    cout<< "---------------------------------------------------------------------------\n";
+    outfile<< "---------------------------------------------------------------------------\n";
     current_execution = extime;
     current_deadline = period;
     bool no_task=false;
@@ -152,24 +153,24 @@ int main(){
         if (!no_task){
 
 
-            cout<<T_step<<" Task " << active_task+1 << " executes \n";
+            outfile<<T_step<<" Task " << active_task+1 << " executes \n";
 
 
 
        
             current_execution[active_task]--;
             if(current_execution[active_task]==0){
-                cout<<T_step<<" Task " << active_task+1 << " completed \n";
+                outfile<<T_step<<" Task " << active_task+1 << " completed \n";
             }
             
         }
-        else if(no_task)cout<<T_step<<" No task \n";
+        else if(no_task)outfile<<T_step<<" No task \n";
         T_step++;
          //adding the execution time every period reached
         for(size_t n = 0; n<period.size();n++){
             if(T_step % period[n]==0){
                 if(current_execution[n]!=0){
-                    cout<<T_step<<" Task " << n+1 << " misses \n";
+                    outfile<<T_step<<" Task " << n+1 << " misses \n";
                 }
                 current_execution[n] = extime[n];
 
@@ -181,7 +182,8 @@ int main(){
 
 
     }
-    cout<< "---------------------------------------------------------------------------\n";
+    outfile<< "---------------------------------------------------------------------------\n";
+    outfile.close();
     return 0;
 
 
