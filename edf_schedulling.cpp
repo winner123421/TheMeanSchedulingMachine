@@ -5,8 +5,9 @@
 
 using namespace std;
 
+//Function to find the lowest common multiple
 int lowest_common_multiple(vector <int> p){
-    //chech biggest number
+    //check biggest number
     int number1=0 ;
     for(size_t n=0;n<p.size();n++){
         if (number1<p[n])number1 = p[n];
@@ -29,9 +30,11 @@ int lowest_common_multiple(vector <int> p){
 
         }
     }
+    return 0;
 
 }
-
+//Function to find the priority
+//In this case because it is EDF the priority is dynamic and determined by the task closest to the deadline
 vector <int> find_priority(vector <int> p){
     vector <int> priority;
     vector <int> index;
@@ -40,7 +43,7 @@ vector <int> find_priority(vector <int> p){
     int temp,indextemp;
 
     for(size_t n = 0; n<p.size();n++)index.push_back(n);
-
+    //Rearrange using bubblesort
     for (size_t n = 0; n<p.size()-1;n++){
         for(size_t m = 0; m<p.size()-n-1;m++){
             if (p[n] > p[n+1]){ 
@@ -68,6 +71,7 @@ vector <int> find_priority(vector <int> p){
 }
 
 int main(){
+    //Defining all Parameters
     string line ;
     string fun ;
     int numtask;
@@ -76,58 +80,49 @@ int main(){
     int T_step = 0;
     int lcm;
 
-
-   
-    
-
-
+    //Opening the input and output files    
     ifstream file("testcase.txt");
     ofstream outfile("output.txt");
 
 
     file >> fun >> numtask;
-    cout<<numtask<<"\n";
+    cout<<"Number of Task "<<numtask<<"\n";
+    outfile<<"Number of Task "<<numtask<<"\n";
     vector <int> extime;
     vector <int>period;
     vector <int> prior;
     vector <int> current_execution;
     vector <int> current_deadline;
     int active_task;
-
     int temp=0;
 
-
+    //Getting the execution time and period into lists
     while(numtask>0){
         
         file>>fun>>temp_extime>>temp_period;
-        
         numtask--;
         extime.push_back(temp_extime);
         period.push_back(temp_period);
     }
+    //Setting up the lowest common multiple and the starting priority
     lcm = lowest_common_multiple(period);
     prior=find_priority(period);
     
-    for (size_t n; n<prior.size();n++){
-        cout<< prior[n]<< " ";
-    }
-    cout<<"\n";
 
     outfile<< "---------------------------------------------------------------------------\n";
+    cout<< "---------------------------------------------------------------------------\n";
     current_execution = extime;
     current_deadline = period;
     bool no_task=false;
+    int misses=0;
 
     while (T_step < lcm){
 
-
-
-
-        //Updating the deadline to get new priority
+        //Updating the deadline to get a dynamic deadline
         for(size_t n = 0; n < period.size();n++){
             current_deadline[n] = period[n] - (T_step % period[n]);
-            //current_deadline[n] = period[n];
         }
+        // updating priority based on current deadline
         prior = find_priority(current_deadline);
 
         //get active task
@@ -138,6 +133,7 @@ int main(){
 
 
         }
+        //Checking if a there is a timestep where no task is executed
         no_task=true;
         for( auto m:current_execution){
 
@@ -145,22 +141,16 @@ int main(){
                 no_task=false;
             }
         }
-        /*for( auto m:current_deadline){
-            cout<< m<< " ";
-        }
-        cout<<"\n";*/
 
         if (!no_task){
-
-
+            //Executes task
             outfile<<T_step<<" Task " << active_task+1 << " executes \n";
-
-
-
-       
+            cout<<T_step<<" Task " << active_task+1 << " executes \n";
             current_execution[active_task]--;
+            //Completes task
             if(current_execution[active_task]==0){
                 outfile<<T_step<<" Task " << active_task+1 << " completed \n";
+                cout<<T_step<<" Task " << active_task+1 << " completed \n";
             }
             
         }
@@ -169,11 +159,15 @@ int main(){
          //adding the execution time every period reached
         for(size_t n = 0; n<period.size();n++){
             if(T_step % period[n]==0){
+                //Checking If there are any deadline misses
                 if(current_execution[n]!=0){
                     outfile<<T_step<<" Task " << n+1 << " misses \n";
+                    cout<<T_step<<" Task " << n+1 << " misses \n";
+                    //Keeping track of total misses
+                    misses++;
                 }
+                //Reequate execution time at the end of a period
                 current_execution[n] = extime[n];
-
             }
         }
 
@@ -182,7 +176,13 @@ int main(){
 
 
     }
+    cout<<"  Schedulling Completed \n";
     outfile<< "---------------------------------------------------------------------------\n";
+    cout<< "---------------------------------------------------------------------------\n\n";
+
+    //Print total misses
+    outfile<<" The total Deadline miss -----> "<< misses << "\n";
+    cout<<" The total Deadline miss -----> "<< misses << "\n";
     outfile.close();
     return 0;
 
