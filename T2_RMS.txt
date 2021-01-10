@@ -1,0 +1,35 @@
+Number of Task = 3
+---------------------------------------------------------------------------
+0 Task 2 executes 
+0 Task 2 completed 
+1 Task 3 executes 
+2 Task 3 executes 
+2 Task 3 completed 
+3 Task 1 executes 
+4 Task 2 executes 
+4 Task 2 completed 
+5 Task 3 executes 
+6 Task 3 executes 
+6 Task 3 completed 
+7 Task 1 executes 
+8 Task 2 executes 
+8 Task 2 completed 
+9 Task 1 executes 
+10 Task 1 misses 
+10 Task 3 executes 
+11 Task 3 executes 
+11 Task 3 completed 
+12 Task 2 executes 
+12 Task 2 completed 
+13 Task 1 executes 
+14 Task 1 executes 
+15 Task 3 executes 
+16 Task 2 executes 
+16 Task 2 completed 
+17 Task 3 executes 
+17 Task 3 completed 
+18 Task 1 executes 
+19 Task 1 executes 
+20 Task 1 misses 
+---------------------------------------------------------------------------
+ The total Deadline miss -----> 2

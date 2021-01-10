@@ -44,18 +44,19 @@ vector <int> find_priority(vector <int> p){
 
     for(size_t n = 0; n<p.size();n++)index.push_back(n);
     //Rearrange using bubblesort
-    for (size_t n = 0; n<p.size()-1;n++){
-        for(size_t m = 0; m<p.size()-n-1;m++){
-            if (p[n] > p[n+1]){ 
+    for (size_t n = 0; n<p.size();n++){
+        for(size_t m = n+1; m<p.size();m++){
+            if (p[m] < p[n]){ 
                 temp = p[n];
-                p[n] = p[n+1];
-                p[n+1]=temp;
+                p[n] = p[m];
+                p[m]=temp;
                 indextemp=index[n];
-                index[n]=index[n+1];
-                index[n+1]=indextemp;
+                index[n]=index[m];
+                index[m]=indextemp;
                 /*for (size_t x=0; x<index.size();x++){
                     cout<< index[x]<< " ";
                 }
+                 cout<<"\n";
                 for (size_t x=0; x<p.size();x++){
                     cout<< p[x]<< " ";
                 }
@@ -81,7 +82,7 @@ int main(){
     int lcm;
 
     //Opening the input and output files    
-    ifstream file("testcase.txt");
+    ifstream file("testcase4.txt");  //CHANGE THIS TO CHANGE INPUT
     ofstream outfile("output.txt");
 
 
@@ -120,10 +121,28 @@ int main(){
 
         //Updating the deadline to get a dynamic deadline
         for(size_t n = 0; n < period.size();n++){
-            current_deadline[n] = period[n] - (T_step % period[n]);
+            if (current_execution[n]>0){
+                current_deadline[n] = period[n] - (T_step % period[n]);
+            }
+            else
+            {
+                current_deadline[n]=1000;
+            }
+            
         }
         // updating priority based on current deadline
         prior = find_priority(current_deadline);
+        
+        //Print to debug
+        /*for(size_t n=0; n<current_deadline.size();n++){
+            outfile<<current_deadline[n]<<" ";
+        }
+        outfile<<"\n";
+        for(size_t n=0; n<prior.size();n++){
+            outfile<<prior[n]<<" ";
+        }
+        outfile<<"\n";*/
+
 
         //get active task
         for(size_t n = prior.size(); n>0; n--){

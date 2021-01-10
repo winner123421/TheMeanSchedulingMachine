@@ -11,6 +11,7 @@ output = temp.split('\n')[2:-3]
 timestep=[]
 task=[]
 action=[]
+missflag=0
 
 
 #splitting the rows into single elements based onspaces
@@ -40,6 +41,7 @@ for n in range(len(timestep)):
     #Plotting Misses
     elif(action[n]=="misses"):
         miss = plt.scatter(timestep[n],task[n],c='#ff1c03',marker='o',s=50)
+        missflag=1
     #Dealing with no task
     elif(action[n]=="no"):
         continue
@@ -52,7 +54,8 @@ plt.xlabel('TIME')
 plt.ylabel('TASK')
 plt.title('Scheduling Results')
 com.set_label('Complete')
-miss.set_label('Miss')
+if (missflag==1):
+	miss.set_label('Miss')
 plt.legend()
 plt.grid()
 

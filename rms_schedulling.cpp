@@ -42,24 +42,25 @@ vector <int> find_priority(vector <int> p){
     bool flag;
     int temp,indextemp;
 
-    for(size_t n = 0; n<p.size();n++)index.push_back(n);
-    //Rearanging with the application of bubble sort
-    for (size_t n = 0; n<p.size()-1;n++){
-        for(size_t m = 0; m<p.size()-n-1;m++){
-            if (p[n] > p[n+1]){ 
+   for(size_t n = 0; n<p.size();n++)index.push_back(n);
+    //Rearrange using bubblesort
+    for (size_t n = 0; n<p.size();n++){
+        for(size_t m = n+1; m<p.size();m++){
+            if (p[m] < p[n]){ 
                 temp = p[n];
-                p[n] = p[n+1];
-                p[n+1]=temp;
+                p[n] = p[m];
+                p[m]=temp;
                 indextemp=index[n];
-                index[n]=index[n+1];
-                index[n+1]=indextemp;
-                /*for (size_t x=0; x<index.size();x++){
+                index[n]=index[m];
+                index[m]=indextemp;
+                for (size_t x=0; x<index.size();x++){
                     cout<< index[x]<< " ";
                 }
+                 cout<<"\n";
                 for (size_t x=0; x<p.size();x++){
                     cout<< p[x]<< " ";
                 }
-                cout<<"\n";*/
+                cout<<"\n";
 
 
 
@@ -67,6 +68,7 @@ vector <int> find_priority(vector <int> p){
         }    
     }
     return index;
+   
    
 }
 
@@ -81,7 +83,7 @@ int main(){
     int lcm;
 
 //Defining the input and output file
-    ifstream file("testcase.txt");
+    ifstream file("testcase3.txt");  //CHANGE THIS TO CHANGE
     ofstream outfile("output.txt");
 
 //Get number of task and define parameters
