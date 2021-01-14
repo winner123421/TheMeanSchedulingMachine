@@ -53,14 +53,15 @@ vector <int> find_priority(vector <int> p){
                 indextemp=index[n];
                 index[n]=index[m];
                 index[m]=indextemp;
-                for (size_t x=0; x<index.size();x++){
+                //print to check priority for debugging
+                /*for (size_t x=0; x<index.size();x++){
                     cout<< index[x]<< " ";
                 }
                  cout<<"\n";
                 for (size_t x=0; x<p.size();x++){
                     cout<< p[x]<< " ";
                 }
-                cout<<"\n";
+                cout<<"\n";*/
 
 
 
@@ -81,9 +82,14 @@ int main(){
     int temp_period;
     int T_step = 0;
     int lcm;
+    string input;
+
+//getting the input
+cout<<" Enter the input file :- \n";
+cin >> input;
 
 //Defining the input and output file
-    ifstream file("testcase3.txt");  //CHANGE THIS TO CHANGE
+    ifstream file(input);  //CHANGE THIS TO CHANGE
     ofstream outfile("output.txt");
 
 //Get number of task and define parameters

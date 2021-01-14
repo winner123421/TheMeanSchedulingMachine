@@ -80,9 +80,15 @@ int main(){
     int temp_period;
     int T_step = 0;
     int lcm;
+    string input;
+
+    //getting the input
+    cout<<" Enter the input file :- \n";
+    cin >> input;
+
 
     //Opening the input and output files    
-    ifstream file("testcase4.txt");  //CHANGE THIS TO CHANGE INPUT
+    ifstream file(input);  //CHANGE THIS TO CHANGE INPUT
     ofstream outfile("output.txt");
 
 
